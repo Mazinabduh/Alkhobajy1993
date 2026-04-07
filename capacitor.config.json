@@ -1,0 +1,22 @@
+{
+  "appId": "com.khubji.electric",
+  "appName": "محطة الخبجي",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    },
+    "Filesystem": {
+      "iosScheme": "ionic"
+    }
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}
