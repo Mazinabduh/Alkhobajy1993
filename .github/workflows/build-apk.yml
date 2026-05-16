@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -26,7 +25,7 @@ jobs:
           java-version: '17'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build web app
         run: npm run build
@@ -38,17 +37,17 @@ jobs:
         working-directory: android
         run: ./gradlew assembleDebug --no-daemon
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
+          name: khubji-electric-debug
           path: android/app/build/outputs/apk/debug/*.apk
 
-      - name: Release APK
-        uses: softprops/action-gh-release@v1
-        if: github.ref == 'refs/heads/main'
+      - name: Create Release with APK
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
+          tag_name: v1.0.${{ github.run_number }}
+          name: محطة الخبجي الكهربائية v1.0.${{ github.run_number }}
           files: android/app/build/outputs/apk/debug/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
