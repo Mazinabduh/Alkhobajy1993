@@ -1,0 +1,1 @@
+import{A as u}from"./index-vQ1SXhF5.js";const o=u([]);let a=1;function f(){function e(s,n="info",r=3e3){const t=a++;o.value.push({id:t,message:s,type:n}),setTimeout(()=>{o.value=o.value.filter(i=>i.id!==t)},r)}return{toasts:o,success:s=>e(s,"success"),error:s=>e(s,"error",4e3),warning:s=>e(s,"warning"),info:s=>e(s,"info")}}export{o as t,f as u};

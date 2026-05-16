@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">محطة الخبجي</string>
+    <string name="title_activity_main">محطة الخبجي</string>
+    <string name="package_name">com.khubji.electric</string>
+    <string name="custom_url_scheme">com.khubji.electric</string>
+</resources>
