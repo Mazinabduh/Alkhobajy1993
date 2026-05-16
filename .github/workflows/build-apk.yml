@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,17 +40,28 @@ jobs:
         working-directory: android
         run: ./gradlew assembleDebug --no-daemon
 
+      - name: Rename APK
+        run: mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/khubji-electric.apk
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: khubji-electric-debug
-          path: android/app/build/outputs/apk/debug/*.apk
+          path: android/app/build/outputs/apk/debug/khubji-electric.apk
+
+      - name: Delete old release
+        uses: dev-drprasad/delete-tag-and-release@v1.1
+        with:
+          tag_name: latest
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
 
       - name: Create Release with APK
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: محطة الخبجي الكهربائية v1.0.${{ github.run_number }}
-          files: android/app/build/outputs/apk/debug/*.apk
+          tag_name: latest
+          name: "محطة الخبجي الكهربائية - أحدث إصدار"
+          body: "تطبيق محطة الخبجي الكهربائية - إصدار تجريبي"
+          files: android/app/build/outputs/apk/debug/khubji-electric.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
